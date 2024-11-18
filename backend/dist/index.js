@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const api_1 = require("./routes/api");
 const app = (0, express_1.default)();
 const port = process.env.PORT || 4000;
 app.use((0, cors_1.default)());
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
+app.use(express_1.default.json());
+app.use("/api", api_1.apiRouter);
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

@@ -1,13 +1,15 @@
 "use client";
 
-import { config } from "@/config";
-import ky from "ky";
-import { useEffect } from "react";
+import { AGBasicMap } from "@/components/arcgis";
 
 export default function Home() {
-  useEffect(() => {
-    ky.get(config.apiUrl).json().then(console.log);
-  }, []);
+  // useEffect(() => {
+  //   ky.get(apiUrl).json().then(console.log);
+  // }, []);
 
-  return <div>App</div>;
+  return (
+    <div>
+      <AGBasicMap />
+    </div>
+  );
 }

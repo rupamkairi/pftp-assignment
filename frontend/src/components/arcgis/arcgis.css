@@ -1,0 +1,9 @@
+@import "https://js.arcgis.com/4.31/@arcgis/core/assets/esri/themes/light/main.css";
+
+.arcgis-map {
+  @apply block h-screen;
+}
+
+.esri-view-root {
+  @apply block h-screen;
+}
