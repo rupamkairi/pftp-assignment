@@ -1,5 +1,9 @@
 export const apiUrl = "http://localhost:10000/api";
 
+export const apis = {
+  locations: `${apiUrl}/locations`,
+};
+
 export const credentials = {
   rupamkairi: {
     clientId: "0nddVTbFGImemsdr",

@@ -1,9 +1,10 @@
 import Graphic from "@arcgis/core/Graphic";
+import { Point } from "@arcgis/core/geometry";
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 
 export const graphicsLayer = new GraphicsLayer();
 
-export { Graphic, GraphicsLayer };
+export { Graphic, GraphicsLayer, Point };
 
 let points = [];
 
@@ -21,9 +22,24 @@ export function clearGraphics() {
   graphicsLayer.removeAll();
 }
 
+export function addPointGraphic(point: __esri.Point) {
+  try {
+    // console.log("addPointGraphic", point);
+    const pointGraphic = new Graphic({
+      geometry: point,
+      symbol: simpleMarkerSymbol,
+    });
+    graphicsLayer.add(pointGraphic);
+  } catch (error) {
+    console.log("addPointGraphic error", error);
+  }
+}
+
 export function showLocationsInMap(results: __esri.AddressCandidate[]) {
   clearGraphics();
+
   results.forEach((result) => {
+    console.log(result.location);
     const pointGraphic = new Graphic({
       geometry: result.location,
       symbol: simpleMarkerSymbol,

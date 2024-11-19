@@ -1,7 +1,10 @@
 import { Router } from "express";
+import { locationsRouter } from "./locations";
 
 export const apiRouter = Router();
 
 apiRouter.get("/", async (req, res) => {
-  res.json({ message: "Hello World!" });
+  res.sendStatus(200);
 });
+
+apiRouter.use("/locations", locationsRouter);

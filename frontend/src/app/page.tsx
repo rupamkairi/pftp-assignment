@@ -8,7 +8,7 @@ export default function Home() {
   // }, []);
 
   return (
-    <div>
+    <div className="container mx-auto max-h-screen">
       <OAuth />
       <Geocode />
       <AGBasicMap />
