@@ -12,9 +12,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@esri/arcgis-rest-geocoding": "^4.0.3",
+    "@esri/arcgis-rest-request": "^4.2.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "ky": "^1.7.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

@@ -1,11 +1,11 @@
-import { initialize } from "./arcgis";
+import { initialize } from "./utils/map";
 import { useEffect, useRef } from "react";
 
 export default function BasicMap() {
   const elementRef = useRef<any>();
 
   useEffect(() => {
-    console.log(elementRef.current);
+    // console.log(elementRef.current);
     if (!elementRef.current) return;
     initialize(elementRef.current);
   }, []);
