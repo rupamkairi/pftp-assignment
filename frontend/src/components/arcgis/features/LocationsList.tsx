@@ -19,7 +19,7 @@ export default function LocationsList({ onEdit, onDelete }: Props) {
       <p>Locations</p>
       <div className="h-full flex flex-col gap-1 overflow-y-scroll">
         {locations?.map((l) => (
-          <div key={l.id} className="border shadow p-4 cursor-pointer">
+          <div key={l.id} className="border rounded shadow p-4 cursor-pointer">
             <div className="flex justify-between">
               <div>
                 <p>{l.name}</p>

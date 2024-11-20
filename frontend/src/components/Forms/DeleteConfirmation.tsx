@@ -38,13 +38,13 @@ export default function DeleteConfirmation({
       className="relative z-50"
     >
       <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-        <DialogPanel className="w-96 space-y-4 border shadow bg-white p-8">
+        <DialogPanel className="w-96 space-y-4 border rounded shadow bg-white p-8">
           <DialogTitle className="font-bold">{title}</DialogTitle>
           <Description></Description>
 
           <div className="flex justify-between">
             <button
-              className="text-red-500"
+              className="font-semibold text-red-500"
               onClick={() => {
                 console.log("Delete", id);
                 deleteLocation();
@@ -54,7 +54,7 @@ export default function DeleteConfirmation({
               Delete
             </button>
             <button
-              className="text-gray-500"
+              className=" text-gray-500"
               onClick={() => {
                 setIsOpen(false);
               }}
