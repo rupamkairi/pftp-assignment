@@ -1,9 +1,8 @@
+import { useFormStore } from "@/stores/form.store";
+import * as reactiveUtils from "@arcgis/core/core/reactiveUtils";
 import Map from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
-import * as reactiveUtils from "@arcgis/core/core/reactiveUtils";
-import { locationsFeatureLayer } from "./features";
 import { graphicsLayer } from "./graphics";
-import { useFormStore } from "@/stores/form.store";
 
 export const map = new Map({
   basemap: "topo",
@@ -24,7 +23,6 @@ export function initialize(container: HTMLDivElement) {
   mapView.when().then(() => {
     console.log("MapView Ready");
     map.add(graphicsLayer);
-    map.add(locationsFeatureLayer);
   });
 
   return () => {

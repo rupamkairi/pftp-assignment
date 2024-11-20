@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { Location } from "./locations.store";
 
 interface FormStore {
   disableForm: boolean;
@@ -15,6 +16,9 @@ interface FormStore {
   setDescription: (description: string) => void;
   setAddress: (address: string) => void;
   setCoordinates: (latitude: number, longitude: number) => void;
+
+  setForm: (location: Location) => void;
+  resetForm: () => void;
 }
 
 export const useFormStore = create<FormStore>()((set) => ({
@@ -33,6 +37,12 @@ export const useFormStore = create<FormStore>()((set) => ({
   setAddress: (address: string) => set({ address }),
   setCoordinates: (latitude: number, longitude: number) =>
     set({ latitude, longitude }),
+
+  setForm: (location: Location) => {
+    return set({
+      ...location,
+    });
+  },
 
   resetForm: () =>
     set({ name: "", description: "", address: "", latitude: 0, longitude: 0 }),

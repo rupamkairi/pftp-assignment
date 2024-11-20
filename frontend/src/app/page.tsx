@@ -1,6 +1,6 @@
 "use client";
 
-import { AGBasicMap, Geocode, OAuth } from "@/components/arcgis";
+import { AGBasicMap, OAuth } from "@/components/arcgis";
 
 export default function Home() {
   // useEffect(() => {
@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="container mx-auto max-h-screen">
       <OAuth />
-      <Geocode />
+      {/* <Geocode /> */}
       <AGBasicMap />
     </div>
   );

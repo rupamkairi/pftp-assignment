@@ -1,8 +1,9 @@
-// export const apiUrl = "http://localhost:10000/api";
-export const apiUrl = "https://pftp-assignment.onrender.com/api/";
+export const apiUrl = "http://localhost:10000/api";
+// export const apiUrl = "https://pftp-assignment.onrender.com/api";
 
 export const apis = {
   locations: `${apiUrl}/locations`,
+  locationById: (id: number) => `${apiUrl}/locations/${id}`,
 };
 
 export const credentials = {

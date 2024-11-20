@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getGeocodeLocations } from "./utils/geocode";
+import { getGeocodeAddress, getGeocodeLocations } from "./utils/geocode";
 import { showLocationsInMap } from "./utils/graphics";
 
 export default function Geocode() {
@@ -9,6 +9,7 @@ export default function Geocode() {
     <div>
       <input
         type="text"
+        className="w-80"
         value={address}
         onChange={(e) => {
           setAddress(e.target.value);
@@ -16,8 +17,12 @@ export default function Geocode() {
       />
       <button
         onClick={async () => {
+          // const result = await getGeocodeAddress();
+          // console.log(result.address);
           const results = await getGeocodeLocations(address);
-          showLocationsInMap(results);
+          const data = results.map((result) => result.location);
+          // showLocationsInMap(results);
+          console.log(data);
         }}
       >
         Geocode

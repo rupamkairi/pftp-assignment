@@ -17,6 +17,7 @@ model Location {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  deleted     Boolean  @default(false)
   name        String
   description String?
   address     String?

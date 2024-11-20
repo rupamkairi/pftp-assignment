@@ -1,18 +1,27 @@
 import { useFormStore } from "@/stores/form.store";
-import { useLocationsStore } from "@/stores/locations.store";
+import { Location, useLocationsStore } from "@/stores/locations.store";
 import { useEffect, useRef, useState } from "react";
-import FloatingForm from "../Forms/FloatingForm";
+import DeleteConfirmation from "../Forms/DeleteConfirmation";
+import LocationForm from "../Forms/LocationForm";
 import LocationsList from "./features/LocationsList";
-import { locationsFeatureLayer } from "./utils/features";
-import { Graphic, graphicsLayer, Point } from "./utils/graphics";
+import { addPointGraphicFromLocations } from "./utils/graphics";
 import { initialize, onMapClick } from "./utils/map";
+import { getGeocodeAddress } from "./utils/geocode";
 
 export default function BasicMap() {
   const { locations } = useLocationsStore();
-  const { setCoordinates } = useFormStore();
+  const { setCoordinates, setAddress, setForm } = useFormStore();
 
-  const elementRef = useRef<any>();
+  const elementRef = useRef<HTMLDivElement>();
   const [isOpen, setIsOpen] = useState(false);
+  const [toEdit, setToEdit] = useState({
+    id: 0,
+  });
+  const [toDelete, setToDelete] = useState({
+    open: false,
+    id: 0,
+    title: "",
+  });
 
   useEffect(() => {
     if (!elementRef.current) return;
@@ -22,49 +31,57 @@ export default function BasicMap() {
   useEffect(() => {
     if (!elementRef.current) return;
     if (!locations.length) return;
-    const points: any = [];
-    locations?.forEach((location) => {
-      const point = new Point({
-        latitude: location.latitude,
-        longitude: location.longitude,
-      });
-
-      const pointGraphic = new Graphic({
-        geometry: point,
-        attributes: {
-          id: location.id,
-          name: location.name,
-          descrption: location.description,
-        },
-        popupTemplate: {
-          title: "Point Graphic",
-        },
-      });
-
-      // graphicsLayer.add(pointGraphic);
-      points.push(pointGraphic);
-    });
-
-    locationsFeatureLayer.source = points;
+    addPointGraphicFromLocations(locations);
   }, [locations]);
 
   useEffect(() => {
-    onMapClick((event) => {
+    onMapClick(async (event) => {
       console.log("Event opens popup");
+      const result = await getGeocodeAddress(
+        event.mapPoint.latitude,
+        event.mapPoint.longitude
+      );
+      setAddress(result.address);
       setCoordinates(event.mapPoint.latitude, event.mapPoint.longitude);
       setIsOpen(true);
     });
   }, []);
 
+  function onEdit(location: Location) {
+    console.log("Editing", location);
+    setIsOpen(true);
+    setForm(location);
+    setToEdit({
+      id: location.id!,
+    });
+  }
+
+  function onDelete(location: Location) {
+    console.log("Deleting", location);
+    setToDelete({
+      open: true,
+      id: location.id!,
+      title: `You are going to delete "${location.name}".`,
+    });
+  }
+
   return (
     <div>
-      <div className="flex">
+      <div className="flex gap-2">
         <div className="flex-grow max-w-80 h-[92vh]">
-          <LocationsList />
+          <LocationsList onEdit={onEdit} onDelete={onDelete} />
         </div>
         <div ref={elementRef} id="mapView" className="flex-grow h-[92vh]"></div>
       </div>
-      <FloatingForm isOpen={isOpen} setIsOpen={setIsOpen} />
+      <LocationForm id={toEdit.id} isOpen={isOpen} setIsOpen={setIsOpen} />
+      <DeleteConfirmation
+        id={toDelete.id}
+        title={toDelete.title}
+        isOpen={toDelete.open}
+        setIsOpen={(value: boolean) => {
+          setToDelete({ ...toDelete, open: value });
+        }}
+      />
     </div>
   );
 }
