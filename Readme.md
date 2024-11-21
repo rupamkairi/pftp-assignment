@@ -1,10 +1,12 @@
 # Guide for Starting the Project
 
 ## Demo
+
 Demo is hosted on `https://pftp-task.vercel.app`.
 
 Backend is hosted on Render which puts applications to sleep after some time of inactivity, this may cause no locations to begin with, try refreshing the page & within a few seconds render will boot up & at least one home location will be visible
 
+## Development
 
 The directory structure looks like following
 ```
